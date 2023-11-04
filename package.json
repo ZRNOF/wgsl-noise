@@ -1,0 +1,20 @@
+{
+	"name": "wgsl-noise",
+	"version": "0.0.0",
+	"description": "webgl-noise ported to WGSL",
+	"main": "index.js",
+	"type": "module",
+	"repository": {
+		"url": "https://github.com/ZRNOF/wgsl-noise"
+	},
+	"scripts": {},
+	"keywords": [
+		"wgsl",
+		"noise",
+		"cellular",
+		"perlin",
+		"simplex"
+	],
+	"author": "Ian McEwan, Ashima Arts, Stefan Gustavson, Zaron Chen",
+	"license": "MIT"
+}
