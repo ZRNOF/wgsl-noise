@@ -1,4 +1,4 @@
-const snoise2D = `
+export const snoise2D = `
   // This is a modified wgsl version from https://github.com/ashima/webgl-noise/blob/master/src/noise2D.glsl
   // 
   // Author: Ian McEwan, Ashima Arts
@@ -56,4 +56,3 @@ const snoise2D = `
     return 130.0 * dot(m, g);
   }
 `
-export default snoise2D

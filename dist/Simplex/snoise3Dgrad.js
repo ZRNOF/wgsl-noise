@@ -1,5 +1,5 @@
-export const snoise3D = `
-  // This is a modified wgsl version from https://github.com/ashima/webgl-noise/blob/master/src/noise3D.glsl
+export const snoise3Dgrad = `
+  // This is a modified wgsl version from https://github.com/ashima/webgl-noise/blob/master/src/noise3Dgrad.glsl
   // 
   // Author: Ian McEwan, Ashima Arts
   // GitHub: https://github.com/ashima/webgl-noise
@@ -19,12 +19,7 @@ export const snoise3D = `
   // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-  fn mod289v3f(x: vec3f)        -> vec3f { return x - floor(x / 289.0) * 289.0; }
-  fn mod289v4f(x: vec4f)        -> vec4f { return x - floor(x / 289.0) * 289.0; }
-  fn permute289v4f(x: vec4f)    -> vec4f { return mod289v4f(((x*34.0)+10.0)*x); }
-  fn taylorInvSqrtv4f(r: vec4f) -> vec4f { return 1.79284291400159 - 0.85373472095314 * r; }
-
-  fn snoise3D(v: vec3f) -> f32 {
+  fn snoise3Dgrad(v: vec3f) -> f32 {
     let C = vec2f(1./6., 1./3.);
     let D = vec4f(0., .5, 1., 2.);
 
@@ -80,8 +75,15 @@ export const snoise3D = `
     p3 *= norm.w;
 
     var m = max(0.5 - vec4f( dot( x0, x0 ), dot( x1, x1 ), dot( x2, x2 ), dot( x3, x3 ) ), vec4f(0.0));
-    m = m * m;
+    var m2 = m * m;
+    var m4 = m2 * m2;
+    var pdotx = vec4f(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3));
 
-    return 105.0 * dot( m*m, vec4f( dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3) ));
+    var temp = m2 * m * pdotx;
+    var gradient = -8.0 * (temp.x * x0 + temp.y * x1 + temp.z * x2 + temp.w * x3);
+    gradient += m4.x * p0 + m4.y * p1 + m4.z * p2 + m4.w * p3;
+    gradient *= 105.0;
+
+    return 105.0 * dot(m4, pdotx);
   }
 `

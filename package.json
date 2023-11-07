@@ -2,7 +2,7 @@
 	"name": "wgsl-noise",
 	"version": "0.0.0",
 	"description": "webgl-noise ported to WGSL",
-	"main": "index.js",
+	"main": "dist/main.js",
 	"type": "module",
 	"repository": {
 		"url": "https://github.com/ZRNOF/wgsl-noise"
@@ -16,5 +16,9 @@
 		"simplex"
 	],
 	"author": "Ian McEwan, Ashima Arts, Stefan Gustavson, Zaron Chen",
-	"license": "MIT"
+	"license": "MIT",
+	"devDependencies": {
+		"@webgpu/types": "^0.1.38",
+		"orton": "^0.0.0"
+	}
 }

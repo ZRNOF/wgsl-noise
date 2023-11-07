@@ -1,4 +1,4 @@
-const cellular2x2x2 = `
+export const cellular2x2x2 = `
   // This is a modified wgsl version from https://github.com/stegu/webgl-noise/blob/master/src/cellular2x2x2.glsl
   // 
   // Author: Stefan Gustavson (stefan.gustavson@liu.se)
@@ -66,4 +66,3 @@ const cellular2x2x2 = `
     return sqrt(d.xy);
   }
 `
-export default cellular2x2x2

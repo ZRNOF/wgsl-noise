@@ -18,11 +18,6 @@ export const cellular2x2 = `
   // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-  fn mod289v2f(x: vec2f)     -> vec2f { return x - floor(x / 289.0) * 289.0; }
-  fn mod289v4f(x: vec4f)     -> vec4f { return x - floor(x / 289.0) * 289.0; }
-  fn mod7v4f(x: vec4f)       -> vec4f { return x - floor(x / 7.0) * 7.0; }
-  fn permute289v4f(x: vec4f) -> vec4f { return mod289v4f((34.0 * x + 10.0) * x); }
-
   fn cellular2x2(P: vec2f) -> vec2f {
     let K = 0.142857142857;
     let K2 = 0.0714285714285;

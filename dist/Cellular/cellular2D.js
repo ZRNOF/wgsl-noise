@@ -1,5 +1,5 @@
-export const cellular2x2 = `
-  // This is a modified wgsl version from https://github.com/stegu/webgl-noise/blob/master/src/cellular2x2.glsl
+export const cellular2D = `
+  // This is a modified wgsl version from https://github.com/stegu/webgl-noise/blob/master/src/cellular2D.glsl
   // 
   // Author: Stefan Gustavson (stefan.gustavson@liu.se)
   // GitHub: https://github.com/stegu/webgl-noise
@@ -18,32 +18,43 @@ export const cellular2x2 = `
   // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-  fn mod289v2f(x: vec2f)     -> vec2f { return x - floor(x / 289.0) * 289.0; }
-  fn mod289v4f(x: vec4f)     -> vec4f { return x - floor(x / 289.0) * 289.0; }
-  fn mod7v4f(x: vec4f)       -> vec4f { return x - floor(x / 7.0) * 7.0; }
-  fn permute289v4f(x: vec4f) -> vec4f { return mod289v4f((34.0 * x + 10.0) * x); }
-
-  fn cellular2x2(P: vec2f) -> vec2f {
+  fn cellular2D(P: vec2f) -> vec2f {
     let K = 0.142857142857;
-    let K2 = 0.0714285714285;
-    let jitter = 0.8;
+    let Ko = 0.428571428571;
+    let jitter = 1.0;
     let Pi = mod289v2f(floor(P));
     let Pf = fract(P);
-    let Pfx = Pf.x + vec4f(-0.5, -1.5, -0.5, -1.5);
-    let Pfy = Pf.y + vec4f(-0.5, -0.5, -1.5, -1.5);
-    var p = permute289v4f(Pi.x + vec4f(0.0, 1.0, 0.0, 1.0));
-    p = permute289v4f(p + Pi.y + vec4f(0.0, 0.0, 1.0, 1.0));
-    let ox = mod7v4f(p)*K+K2;
-    let oy = mod7v4f(floor(p*K))*K+K2;
-    let dx = Pfx + jitter*ox;
-    let dy = Pfy + jitter*oy;
-    var d = dx * dx + dy * dy;
-
-    d = select(d.yxzw, d.xyzw, (d.x < d.y));
-    d = select(d.zyxw, d.xyzw, (d.x < d.z));
-    d = select(d.wyzx, d.xyzw, (d.x < d.w));
-    d.y = min(d.y, d.z);
-    d.y = min(d.y, d.w);
-    return sqrt(d.xy);
+    let Oi = vec3f(-1.0, 0.0, 1.0);
+    let Of = vec3f(-0.5, 0.5, 1.5);
+    let px = permute289v3f(Pi.x + Oi);
+    var p  = permute289v3f(px.x + Pi.y + Oi);
+    var ox = vec3f(fract(p*K) - Ko);
+    var oy = mod7v3f(floor(p*K))*K - Ko;
+    var dx = vec3f(Pf.x + 0.5 + jitter*ox);
+    var dy = vec3f(Pf.y - Of + jitter*oy);
+    var d1 = vec3f(dx * dx + dy * dy);
+    p = permute289v3f(px.y + Pi.y + Oi);
+    ox = fract(p*K) - Ko;
+    oy = mod7v3f(floor(p*K))*K - Ko;
+    dx = Pf.x - 0.5 + jitter*ox;
+    dy = Pf.y - Of + jitter*oy;
+    var d2 = vec3f(dx * dx + dy * dy);
+    p = permute289v3f(px.z + Pi.y + Oi);
+    ox = fract(p*K) - Ko;
+    oy = mod7v3f(floor(p*K))*K - Ko;
+    dx = Pf.x - 1.5 + jitter*ox;
+    dy = Pf.y - Of + jitter*oy;
+    let d3 = vec3f(dx * dx + dy * dy);
+    let d1a = min(d1, d2);
+    d2 = max(d1, d2);
+    d2 = min(d2, d3);
+    d1 = min(d1a, d2);
+    d2 = max(d1a, d2);
+    d1 = select(d1.yxz, d1, (d1.x < d1.y));
+    d1 = select(d1.zyx, d1, (d1.x < d1.z));
+    d1 = vec3f( d1.x, min(d1.yz, d2.yz) );
+    d1 = vec3f( d1.x, min(d1.y, d1.z), d1.z );
+    d1 = vec3f( d1.x, min(d1.y, d2.x), d1.z );
+    return sqrt(d1.xy);
   }
 `

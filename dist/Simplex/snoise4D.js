@@ -19,13 +19,6 @@ export const snoise4D = `
   // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-  fn mod289f32(x: f32)          ->   f32 { return x - floor(x / 289.0) * 289.0; }
-  fn mod289v4f(x: vec4f)        -> vec4f { return x - floor(x / 289.0) * 289.0; }
-  fn permute289f32(x:   f32)    ->   f32 { return mod289f32(((x*34.0)+10.0)*x); }
-  fn permute289v4f(x: vec4f)    -> vec4f { return mod289v4f(((x*34.0)+10.0)*x); }
-  fn taylorInvSqrtf32(r:   f32) ->   f32 { return 1.79284291400159 - 0.85373472095314 * r; }
-  fn taylorInvSqrtv4f(r: vec4f) -> vec4f { return 1.79284291400159 - 0.85373472095314 * r; }
-
   fn grad4(j: f32, ip: vec4f) -> vec4f {
     let ones = vec4f(1.0, 1.0, 1.0, -1.0);
     var p: vec4f;

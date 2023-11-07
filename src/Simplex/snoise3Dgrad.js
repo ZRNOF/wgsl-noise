@@ -1,4 +1,4 @@
-const snoise3Dgrad = `
+export const snoise3Dgrad = `
   // This is a modified wgsl version from https://github.com/ashima/webgl-noise/blob/master/src/noise3Dgrad.glsl
   // 
   // Author: Ian McEwan, Ashima Arts
@@ -92,4 +92,3 @@ const snoise3Dgrad = `
     return 105.0 * dot(m4, pdotx);
   }
 `
-export default snoise3Dgrad

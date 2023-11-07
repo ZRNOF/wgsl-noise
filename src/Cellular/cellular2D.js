@@ -1,4 +1,4 @@
-const cellular2D = `
+export const cellular2D = `
   // This is a modified wgsl version from https://github.com/stegu/webgl-noise/blob/master/src/cellular2D.glsl
   // 
   // Author: Stefan Gustavson (stefan.gustavson@liu.se)
@@ -63,4 +63,3 @@ const cellular2D = `
     return sqrt(d1.xy);
   }
 `
-export default cellular2D
