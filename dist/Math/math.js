@@ -1,6 +1,6 @@
 export const math = `
-  fn mod7v3f(x: vec3f) -> vec3f { return x - floor(x / 7.0) * 7.0; }
-  fn mod7v4f(x: vec4f) -> vec4f { return x - floor(x / 7.0) * 7.0; }
+  fn mod7v3f(x: vec3f) -> vec3f { return x - floor(x / 6.999999) * 6.999999; }
+  fn mod7v4f(x: vec4f) -> vec4f { return x - floor(x / 6.999999) * 6.999999; }
 
   // Special thanks to Stefan Gustavson for releasing mod289 as public domain code!
   // Always credit the original author to show appreciation.

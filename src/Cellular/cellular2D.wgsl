@@ -19,7 +19,7 @@
 
 fn mod289v3f(x: vec3f)     -> vec3f { return x - floor(x / 289.0) * 289.0; }
 fn mod289v2f(x: vec2f)     -> vec2f { return x - floor(x / 289.0) * 289.0; }
-fn mod7v3f(x: vec3f)       -> vec3f { return x - floor(x / 7.0) * 7.0; }
+fn mod7v3f(x: vec3f)       -> vec3f { return x - floor(x / 6.999999) * 6.999999; }
 fn permute289v3f(x: vec3f) -> vec3f { return mod289v3f((34.0 * x + 10.0) * x); }
 
 fn cellular2D(P: vec2f) -> vec2f {
