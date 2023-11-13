@@ -1,9 +1,10 @@
 {
 	"name": "wgsl-noise",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "webgl-noise ported to WGSL",
 	"main": "dist/main.js",
 	"type": "module",
+	"types": "dist/main.d.ts",
 	"repository": {
 		"url": "https://github.com/ZRNOF/wgsl-noise"
 	},
