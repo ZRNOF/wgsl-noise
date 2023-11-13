@@ -1,5 +1,7 @@
 # wgsl-noise
 
+[![npm version](https://badge.fury.io/js/wgsl-noise.svg)](https://badge.fury.io/js/wgsl-noise)
+
 This repository contains the noise functions that were converted from GLSL to WGSL, sourced from [ashima/webgl-noise](https://github.com/ashima/webgl-noise) and [stegu/webgl-noise](https://github.com/stegu/webgl-noise).
 
 Please note that it currently does not include `psrdnoise` since the original author has already provided a version converted to WGSL (please refer to: [stegu/psrdnoise](https://github.com/stegu/psrdnoise)).
